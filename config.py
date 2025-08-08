@@ -25,4 +25,5 @@ db_path='/home/lam/Desktop/Viettel/MORE_DATA/SOREL-20M'
 checkpoint_dir = None
 
 # adjust the batch size as needed give memory/bus constraints
-batch_size=8192
+# batch_size=8192
+batch_size = 16

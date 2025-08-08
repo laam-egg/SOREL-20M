@@ -24,10 +24,14 @@ class LMDBReader(object):
 
     def __init__(self, path, postproc_func=None):
         # self.env = lmdb.open(path, readonly=True, map_size=1e13, max_readers=1024)
-        self.env = lmdb.open(path, readonly=True, max_readers=1024)
+        # self.env = lmdb.open(path, readonly=True, max_readers=1024)
+        self.path = path
         self.postproc_func = postproc_func
+        self.env = None
 
     def __call__(self, key):
+        if self.env is None:
+            self.env = lmdb.open(self.path, readonly=True, lock=False, max_readers=1024)
         with self.env.begin() as txn:
             x = txn.get(key.encode('ascii'))
         if x is None:return None

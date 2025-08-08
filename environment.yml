@@ -8,6 +8,7 @@ dependencies:
   - pytorch::pytorch==1.12.1
   - pytorch::torchvision==0.13.1
   - cudatoolkit=11.8
+  - numpy<2.0.0
   - tqdm
   - scikit-learn
   - lightgbm
