@@ -19,3 +19,4 @@ dependencies:
     - lmdb==1.7.3
     - logzero==1.5.0
     - msgpack==0.6.2
+    - git+https://github.com/elastic/ember.git@d97a0b523de02f3fe5ea6089d080abacab6ee931
