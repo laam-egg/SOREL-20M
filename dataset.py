@@ -23,7 +23,8 @@ import json
 class LMDBReader(object):
 
     def __init__(self, path, postproc_func=None):
-        self.env = lmdb.open(path, readonly=True, map_size=1e13, max_readers=1024)
+        # self.env = lmdb.open(path, readonly=True, map_size=1e13, max_readers=1024)
+        self.env = lmdb.open(path, readonly=True, max_readers=1024)
         self.postproc_func = postproc_func
 
     def __call__(self, key):
@@ -105,7 +106,8 @@ class Dataset(data.Dataset):
             logger.info("Removing samples with missing features...")
             indexes_to_remove = []
             logger.info("Checking dataset for keys with missing features.")
-            temp_env = lmdb.open(features_lmdb_path, readonly=True, map_size=1e13, max_readers=256)
+            # temp_env = lmdb.open(features_lmdb_path, readonly=True, map_size=1e13, max_readers=256)
+            temp_env = lmdb.open(features_lmdb_path, readonly=True, max_readers=256)
             with temp_env.begin() as txn:
                 for index, item in tqdm.tqdm(enumerate(vals), total=len(vals), mininterval=.5, smoothing=0.):
                     if txn.get(item[retrieve_ind['sha256']].encode('ascii')) is None:

@@ -123,7 +123,10 @@ def evaluate_lgb(lightgbm_model_file,
     f = open(os.path.join(results_dir, 'results.csv'), 'w')
     first_batch = True
     for shas, features, labels in tqdm.tqdm(generator):
+        print("features", features)
         predictions = {'malware':model.predict(features)}
+        print("predictions", predictions)
+        raise SystemExit()
         results = normalize_results(labels, predictions, use_malware=True, use_count=False, use_tags=False)
         pd.DataFrame(results, index=shas).to_csv(f, header=first_batch)
         first_batch = False
