@@ -1,23 +1,5 @@
+from . import *
 import argparse
-from argparse import Namespace as ArgparseNamespace
-
-def infer_lgbm(args):
-    # type: (ArgparseNamespace) -> None
-    from .models import SOREL20M_LGBM
-    model = SOREL20M_LGBM()
-    model.load(args.lgb_model)
-    prob = model.predict_single_file(args.pe_file)
-    print(f"On file: {args.pe_file}")
-    print(f"LightGBM prediction: {prob:.6f}")
-
-def infer_ffnn(args):
-    # type: (ArgparseNamespace) -> None
-    from .models import SOREL20M_FFNN
-    model = SOREL20M_FFNN()
-    model.load(args.ffnn_model)
-    prob = model.predict_single_file(args.pe_file)
-    print(f"On file: {args.pe_file}")
-    print(f"FFNN prediction: {prob:.6f}")
 
 def main():
     parser = argparse.ArgumentParser(description="Run/evaluate SOREL-20M models")
@@ -25,14 +7,22 @@ def main():
     parser.add_argument("--pe-file", help="Path to the PE file", default="/home/lam/Desktop/Viettel/LESS_DATA/Trojan.ATA_virussign.com_422cd1e311479e0bc0cb9bd9b4f106cf.exe")
     parser.add_argument("--lgb-model", help="Path to LightGBM model file (.model)", default="../MODELS/lightGBM/seed0/lightgbm.model")
     parser.add_argument("--ffnn-model", help="Path to FFNN model file (.pth)", default="../MODELS/FFNN/seed0/epoch_1.pt")
+    parser.add_argument("--threshold", type=float, help="Threshold of prediction when evaluating a model.", default=0.5)
     args = parser.parse_args()
 
-    if args.run_option == "LGBM":
+    r = args.run_option
+    if r == "LGBM":
         infer_lgbm(args)
-    elif args.run_option == "FFNN":
+    elif r == "FFNN":
         infer_ffnn(args)
+    elif r == "pefe":
+        pefe(args)
+    elif r == "IEF_LGBM":
+        IEF_LGBM(args)
+    elif r == "IEF_FFNN":
+        IEF_FFNN(args)
     else:
-        print(f"Run option not implemented: {args.run_option}")
+        print(f"Run option not implemented: {r}")
 
 if __name__ == "__main__":
     main()

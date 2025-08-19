@@ -20,3 +20,5 @@ dependencies:
     - msgpack==0.6.2
     - lief==0.10.1
     - git+https://github.com/elastic/ember.git@d97a0b523de02f3fe5ea6089d080abacab6ee931
+    - msgpack-numpy==0.4.8
+    - git+https://github.com/pefe-system/pefe-agent.git@80b55828c3dc91d8cff8ab45e8847c1984ab9ac8#egg=pefe_agent

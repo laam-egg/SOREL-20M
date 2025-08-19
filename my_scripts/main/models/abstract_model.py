@@ -10,9 +10,16 @@ class AbstractModel:
         # type: (AbstractModel, str) -> None
         raise NotImplementedError
     
-    def extract_features(self, pe_file_path):
-        # type: (AbstractModel, str) -> ndarray
+    def extract_features(self, bytes):
+        # type: (AbstractModel, bytes) -> ndarray
         raise NotImplementedError
+    
+    def extract_features_from_single_file(self, pe_file_path):
+        # type: (AbstractModel, str) -> ndarray
+        with open(pe_file_path, "rb") as f:
+            raw_bytes = f.read()
+        
+        return self.extract_features(raw_bytes)
     
     def predict(self, feature_vectors):
         # type: (AbstractModel, ndarray) -> None

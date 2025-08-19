@@ -11,13 +11,9 @@ class SOREL20M_Model(AbstractModel):
     @property
     def extractor(self):
         return self._extractor
-    
-    def extract_features(self, pe_file_path):
-        # type: (AbstractModel, str) -> ndarray
-        """Extract features from a PE file using EMBER extractor."""
-        with open(pe_file_path, 'rb') as f:
-            bytes = f.read()
-        raw_features = self.extractor.raw_features(bytes)
+
+    def extract_features(self, raw_bytes):
+        raw_features = self.extractor.raw_features(raw_bytes)
         feature_vector = self.extractor.process_raw_features(raw_features)
 
         # Apply SOREL-20M log postprocessing to extracted features.
