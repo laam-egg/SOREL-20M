@@ -1,14 +1,16 @@
 name: sorel
 channels:
+  - conda-forge
+  - nvidia
   - defaults
   - pytorch
 dependencies:
   - pip
-  - python=3.10
-  - pytorch::pytorch==1.12.1
-  - pytorch::torchvision==0.13.1
-  - cudatoolkit=11.8
-  - numpy<2.0.0
+  - python=3.8
+  - pytorch==2.1.0
+  - torchvision==0.16.0
+  - pytorch-cuda==12.1
+  - numpy==1.23.0
   - tqdm
   - scikit-learn
   - lightgbm
@@ -19,4 +21,5 @@ dependencies:
     - lmdb==1.7.3
     - logzero==1.5.0
     - msgpack==0.6.2
+    - lief==0.10.1
     - git+https://github.com/elastic/ember.git@d97a0b523de02f3fe5ea6089d080abacab6ee931

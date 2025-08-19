@@ -119,6 +119,18 @@ class Dataset(data.Dataset):
             indexes_to_remove = set(indexes_to_remove)
             vals = [value for index, value in enumerate(vals) if index not in indexes_to_remove]
             logger.info(f"{len(indexes_to_remove)} samples had no associated feature and were removed.")
+
+            from datetime import datetime
+            ignored_indexes_file_path = f"IGNORED_INDEXES_{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+            with open(ignored_indexes_file_path, 'w') as f:
+                json.dump([*indexes_to_remove], f)
+            logger.info(f"")
+            logger.info(f"================================")
+            logger.info(f"IGNORED INDEXES HAS BEEN SAVED INTO")
+            logger.info(f"    {ignored_indexes_file_path}")
+            logger.info(f"================================")
+            logger.info(f"")
+
             logger.info(f"Dataset now has {len(vals)} samples.")
         elif (remove_missing_features is False) or (remove_missing_features is None):
             pass

@@ -20,7 +20,7 @@ train_validation_split = 1543542570.0
 
 # modify these paths as needed to point to the directory that contains the meta_db
 # and to indicate where the checkpoints should be placed during model training
-db_path='/home/lam/Desktop/Viettel/MORE_DATA/SOREL-20M'
+db_path='/home/lam/Desktop/Viettel/MORE_DATA/SOREL-20M/processed-data'
 # checkpoint_dir='/home/lam/Desktop/Viettel/SOREL-20M/MODELS/'
 checkpoint_dir = None
 
