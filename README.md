@@ -12,6 +12,7 @@
   - [Decoupling Feature Extraction and Inference](#decoupling-feature-extraction-and-inference)
     - [Step 1: Feature Extraction](#step-1-feature-extraction)
     - [Step 2: Inference on Extracted Features](#step-2-inference-on-extracted-features)
+    - [Step 3: Comparing Models](#step-3-comparing-models)
   - [Troubleshooting](#troubleshooting)
     - [ValueError: Samples cannot be a single string. The input must be an iterable over iterables of strings.](#valueerror-samples-cannot-be-a-single-string-the-input-must-be-an-iterable-over-iterables-of-strings)
 
@@ -130,8 +131,11 @@ Example usage:
 
 ## Decoupling Feature Extraction and Inference
 
-This would be helpful when dealing with extremely large set
-of PE files.
+The previous part showed how to infer one PE file at a time.
+But how about inferring multiple PE files?
+
+Decoupling Feature Extraction and Inference would be helpful
+when dealing with extremely large set of PE files.
 
 Extracting features from hundreds of thousands of PE files
 would often take several hours. Meanwhile, running model
@@ -197,6 +201,40 @@ DET curves.
 
 The graphics will also be saved as image files
 into the current working directory.
+
+### Step 3: Comparing Models
+
+The final boss! This will:
+
+- Scan directories containing multiple model/checkpoint files
+    (just like SOREL-20M's baseline checkpoints directories),
+- Load the models,
+- Evaluate them on the LMDB dataset (which are the features
+    that we extracted from PE files earlier),
+- Render all those models' evaluation results as json and
+    charts.
+
+```sh
+cd $PROJECT_ROOT
+mkdir -p ./RESULTS/ALL
+cd my_scripts
+
+python -m main IEF_ALL \ 
+    --lgb-models-dir=/path/to/downloaded/LGBM/models/directory/e.g./.../lightGBM/ \ 
+    --ffnn-models-dir=/path/to/downloaded/FFNN/models/directory/e.g./.../FFNN/ \ 
+    --results-dir=../RESULTS/ALL
+```
+
+The results are stored in, of course, the results dir.
+In this case, it is `$PROJECT_ROOT/RESULTS/ALL`.
+
+To visualize/render the results:
+
+```sh
+cd $PROJECT_ROOT
+cd my_scripts
+python -m main IEF_ALL_VIZ --results-dir=../RESULTS/ALL
+```
 
 ## Troubleshooting
 

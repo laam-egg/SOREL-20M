@@ -1,6 +1,8 @@
 import numpy as np
 from numpy import ndarray
 import time
+from tqdm import tqdm
+import gc
 
 class AbstractModel:
     def __init__(self):
@@ -8,9 +10,15 @@ class AbstractModel:
 
     def load(self, model_path):
         # type: (AbstractModel, str) -> None
+        return self.do_load(model_path)
+    def do_load(self, model_path):
+        # type: (AbstractModel, str) -> None
         raise NotImplementedError
     
     def extract_features(self, bytes):
+        # type: (AbstractModel, bytes) -> ndarray
+        return self.do_extract_features(bytes)
+    def do_extract_features(self, bytes):
         # type: (AbstractModel, bytes) -> ndarray
         raise NotImplementedError
     
@@ -21,8 +29,31 @@ class AbstractModel:
         
         return self.extract_features(raw_bytes)
     
-    def predict(self, feature_vectors):
+    def predict(self, X_test):
         # type: (AbstractModel, ndarray) -> None
+        BATCH_SIZE = self.get_batch_size()
+        X_test_batches = [X_test[i:i+BATCH_SIZE] for i in range(0, len(X_test), BATCH_SIZE)]
+        y_probs = []
+        TOTAL = 0
+        for X_test_batch in tqdm(X_test_batches):
+            TOTAL += len(X_test_batch)
+            y_probs_batch = self.do_predict(X_test_batch)
+            y_probs.extend(y_probs_batch)
+        assert TOTAL == len(X_test)
+        y_probs = np.array(y_probs)
+
+        del X_test_batches
+        gc.collect()
+        return y_probs
+    def do_predict(self, feature_vectors):
+        # type: (AbstractModel, ndarray) -> None
+        raise NotImplementedError
+
+    def get_batch_size(self):
+        # type: (AbstractModel) -> int
+        return self.do_get_batch_size()
+    def do_get_batch_size(self):
+        # type: (AbstractModel) -> int
         raise NotImplementedError
     
     def predict_single_file(self, pe_file_path):

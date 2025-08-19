@@ -12,7 +12,7 @@ class SOREL20M_Model(AbstractModel):
     def extractor(self):
         return self._extractor
 
-    def extract_features(self, raw_bytes):
+    def do_extract_features(self, raw_bytes):
         raw_features = self.extractor.raw_features(raw_bytes)
         feature_vector = self.extractor.process_raw_features(raw_features)
 

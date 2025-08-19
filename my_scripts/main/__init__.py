@@ -34,3 +34,25 @@ def IEF_FFNN(args):
     from .ief import ief
     from .models import SOREL20M_FFNN
     ief(SOREL20M_FFNN, args.ffnn_model, args.threshold)
+
+def IEF_ALL(args):
+    # type: (ArgparseNamespace) -> None
+    from .ief_all import ief_all
+    from .models import SOREL20M_LGBM, SOREL20M_FFNN
+    ief_all(
+        {
+            str(args.lgb_models_dir): SOREL20M_LGBM,
+            str(args.ffnn_models_dir): SOREL20M_FFNN,
+        },
+
+        args.threshold,
+
+        args.results_dir,
+    )
+
+def IEF_ALL_VIZ(args):
+    # type: (ArgparseNamespace) -> None
+    from .ief_all import ief_all_viz
+    ief_all_viz(
+        args.results_dir,
+    )

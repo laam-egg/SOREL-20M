@@ -75,8 +75,7 @@ from copy import deepcopy
 import numpy as np
 
 class SOREL20M_FFNN(SOREL20M_Model):
-    def load(self, model_path):
-        print(f"[+] Loading FFNN model (checkpoint) from {model_path}...")
+    def do_load(self, model_path):
         model = PENetwork(
             use_malware=True,
             use_counts=False,
@@ -110,7 +109,7 @@ class SOREL20M_FFNN(SOREL20M_Model):
         self._model = model
         print(f"Operating on device: {self._DEVICE_NAME}")
     
-    def predict(self, feature_vectors):
+    def do_predict(self, feature_vectors):
         X = torch.Tensor(feature_vectors).to(self._DEVICE_NAME)
         raw_predictions = self._model(X)
         y_probs = self.detach_and_copy_array(raw_predictions['malware'])
@@ -127,3 +126,6 @@ class SOREL20M_FFNN(SOREL20M_Model):
             return deepcopy(array).ravel()
         else:
             raise ValueError("Got array of unknown type {} with value {}".format(type(array), str(array)))
+    
+    def do_get_batch_size(self):
+        return 16384 # occupy about 450MB VRAM on NVIDIA GeForce MX350 (2GB)
