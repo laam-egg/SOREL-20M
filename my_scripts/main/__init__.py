@@ -49,10 +49,3 @@ def IEF_ALL(args):
 
         args.results_dir,
     )
-
-def IEF_ALL_VIZ(args):
-    # type: (ArgparseNamespace) -> None
-    from .ief_all import ief_all_viz
-    ief_all_viz(
-        args.results_dir,
-    )

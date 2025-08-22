@@ -9,7 +9,6 @@ RUN_OPTIONS = {
     "IEF_LGBM": IEF_LGBM,
     "IEF_FFNN": IEF_FFNN,
     "IEF_ALL": IEF_ALL,
-    "IEF_ALL_VIZ": IEF_ALL_VIZ,
 } # type: dict[str, Callable[[ArgparseNamespace], None]]
 
 def main():
@@ -21,7 +20,7 @@ def main():
     parser.add_argument("--threshold", type=float, help="(IEF_LGBM, IEF_FFNN, IEF_ALL) Threshold of prediction when evaluating a model.", default=0.5)
     parser.add_argument("--lgb-models-dir", help="(IEF_ALL) Path to the LightGBM models directory", default="../MODELS/lightGBM/")
     parser.add_argument("--ffnn-models-dir", help="(IEF_ALL) Path to the FFNN models directory", default="../MODELS/FFNN/")
-    parser.add_argument("--results-dir", help="(IEF_ALL, IEF_ALL_VIZ) Path to the results directory", default="../RESULTS/ALL")
+    parser.add_argument("--results-dir", help="(IEF_ALL) Path to the results directory", default="../RESULTS/ALL")
     args = parser.parse_args()
 
     r = args.run_option

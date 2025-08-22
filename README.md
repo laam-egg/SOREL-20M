@@ -228,13 +228,39 @@ python -m main IEF_ALL \
 The results are stored in, of course, the results dir.
 In this case, it is `$PROJECT_ROOT/RESULTS/ALL`.
 
-To visualize/render the results:
+**We use a different Python environment for viewing**
+**these results.**
 
 ```sh
 cd $PROJECT_ROOT
-cd my_scripts
-python -m main IEF_ALL_VIZ --results-dir=../RESULTS/ALL
+cd my_scripts/ief_all_viz
+conda env create -f environment.yml
+conda activate sorel_ief_all_viz
+jupyter nbextension enable --py widgetsnbextension
 ```
+
+To preview raw results:
+
+```sh
+python preview.py ../../RESULTS/ALL/
+```
+
+To visualize/render the results:
+
+```sh
+jupyter notebook --url=127.0.0.1 --port=8888
+```
+
+then open a browser, navigate to `localhost:8888`,
+choose to open the file `ief_all_viz.ipynb`. Run
+all cells.
+
+It is not recommended to run this notebook in
+VSCode as the kernel version is no longer supported.
+I have also experienced weird bugs there myself,
+e.g. tqdm does not update, rendering images is slow
+as hell (or never finishes), and HTML elements
+are unexpectedly rendered in duplicate.
 
 ## Troubleshooting
 
