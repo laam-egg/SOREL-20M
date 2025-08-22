@@ -255,8 +255,24 @@ then open a browser, navigate to `localhost:8888`,
 choose to open the file `ief_all_viz.ipynb`. Run
 all cells.
 
-It is not recommended to run this notebook in
-VSCode as the kernel version is no longer supported.
+**To save the widgets so that you could review**
+**the visualization later without rerunning all**
+**cells, remember to click menu Widgets -> Save Notebook Widget State.**
+When reopening the notebook, it might take some time**
+**to fully reload all the visualizations.
+
+To export to HTML for conveniently sharing with others:
+
+```sh
+jupyter nbconvert --to html ief_all_viz.ipynb
+```
+
+(since the notebook contains interactive elements,
+exporting to HTML is best. PDF loses some elements
+along the way.)
+
+**It is not recommended to run this notebook in**
+**VSCode** as the kernel version is no longer supported.
 I have also experienced weird bugs there myself,
 e.g. tqdm does not update, rendering images is slow
 as hell (or never finishes), and HTML elements
