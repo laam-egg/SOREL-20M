@@ -211,8 +211,8 @@ The final boss! This will:
 - Load the models,
 - Evaluate them on the LMDB dataset (which are the features
     that we extracted from PE files earlier),
-- Render all those models' evaluation results as json and
-    charts.
+- Render all those models' evaluation results as metadata
+    (msgpack'ed) and charts.
 
 ```sh
 cd $PROJECT_ROOT
@@ -225,58 +225,20 @@ python -m main IEF_ALL \
     --results-dir=../RESULTS/ALL
 ```
 
-The results are stored in, of course, the results dir.
-In this case, it is `$PROJECT_ROOT/RESULTS/ALL`.
+The results are stored in, of course, the results directory.
+In the command above, it is `$PROJECT_ROOT/RESULTS/ALL`.
 
-**We use a different Python environment for viewing**
-**these results.**
+To visualize these results, use [the tool `pefe-ief-viz`](https://github.com/pefe-system/pefe-ief-viz).
 
-```sh
-cd $PROJECT_ROOT
-cd my_scripts/ief_all_viz
-conda env create -f environment.yml
-conda activate sorel_ief_all_viz
-jupyter nbextension enable --py widgetsnbextension
-```
-
-To preview raw results:
-
-```sh
-python preview.py ../../RESULTS/ALL/
-```
-
-To visualize/render the results:
-
-```sh
-jupyter notebook --url=127.0.0.1 --port=8888
-```
-
-then open a browser, navigate to `localhost:8888`,
-choose to open the file `ief_all_viz.ipynb`. Run
-all cells.
-
-**To save the widgets so that you could review**
-**the visualization later without rerunning all**
-**cells, remember to click menu Widgets -> Save Notebook Widget State.**
-When reopening the notebook, it might take some time**
-**to fully reload all the visualizations.
-
-To export to HTML for conveniently sharing with others:
-
-```sh
-jupyter nbconvert --to html ief_all_viz.ipynb
-```
-
-(since the notebook contains interactive elements,
-exporting to HTML is best. PDF loses some elements
-along the way.)
-
-**It is not recommended to run this notebook in**
-**VSCode** as the kernel version is no longer supported.
-I have also experienced weird bugs there myself,
-e.g. tqdm does not update, rendering images is slow
-as hell (or never finishes), and HTML elements
-are unexpectedly rendered in duplicate.
+If you don't want to run it yourself,
+the visualization notebook and HTML file
+are also available in `$PROJECT_ROOT/my_scripts/visualization`.
+To run the notebook or export to HTML, though, you still
+need to follow `pefe-ief-viz`'s instructions.
+**It is a known issue that the HTML file**
+**might not display properly when hosted**
+**and accessed online,** you might have to
+download it instead.
 
 ## Troubleshooting
 

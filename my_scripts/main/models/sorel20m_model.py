@@ -1,5 +1,5 @@
 from ember import PEFeatureExtractor
-from .abstract_model import AbstractModel
+from pefe_ief.models.abstract_model import AbstractModel
 import numpy as np
 from numpy import ndarray
 

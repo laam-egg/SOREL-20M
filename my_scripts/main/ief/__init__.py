@@ -53,7 +53,7 @@ def compute_and_plot(y_test, y_probs, roc_curve_func=roc_curve):
     plt.savefig(f"IEF_DET_{roc_curve_func.__name__}.png", dpi=300, bbox_inches='tight')
     plt.show()
 
-from ..models.abstract_model import AbstractModel
+from pefe_ief.models.abstract_model import AbstractModel
 from typing import Type
 
 def ief(model_class, model_path, threshold):

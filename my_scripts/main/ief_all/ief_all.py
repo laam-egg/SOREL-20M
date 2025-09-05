@@ -1,4 +1,4 @@
-from ..models.abstract_model import AbstractModel
+from pefe_ief.models.abstract_model import AbstractModel
 from typing import Type
 import lmdb
 from pefe_agent.config import *
