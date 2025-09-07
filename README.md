@@ -231,9 +231,10 @@ In the command above, it is `$PROJECT_ROOT/RESULTS/ALL`.
 To visualize these results, use [the tool `pefe-ief-viz`](https://github.com/pefe-system/pefe-ief-viz).
 
 If you don't want to run it yourself,
-the visualization notebook and HTML file
+the visualization notebook and HTML file,
+which I ran against my own dataset,
 are also available in `$PROJECT_ROOT/my_scripts/visualization`.
-To run the notebook or export to HTML, though, you still
+To run that notebook or export it again to HTML, though, you still
 need to follow `pefe-ief-viz`'s instructions.
 **It is a known issue that the HTML file**
 **might not display properly when hosted**
